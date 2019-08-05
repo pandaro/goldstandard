@@ -1,18 +1,42 @@
- 
---
--- Minimal Development Test
--- Mod: test
---
+goldstandard ={}
 
--- Try out PseudoRandom
-pseudo = PseudoRandom(13)
-assert(pseudo:next() == 22290)
-assert(pseudo:next() == 13854)
-print('sdsdc')
+
+function goldstandard.oreValue()
+    for i,v in pairs(minetest.registered_ores) do
+        local value = v.clust_scarcity * v.clust_size * (v.clust_num_ores or 1) * math.abs(v.y_max-v.y_min)
+        print(v.ore .. ' ' .. value)
+        
+    end
+end
+
+function goldstandard.toolcapsValue()
+    for i,v in pairs(core.registered_items) do
+        local itemstack=ItemStack(i)
+        local itemdef=itemstack:get_definition()
+        local itemcaps=itemdef.tool_capabilities
+        print(i.. ' ' .. dump(itemcaps))   
+    end
+
+end
+
+function goldstandard.craftValue()
+    for i,v in pairs(minetest.registered_items)do
+		print(tostring(i))
+		local recipes = minetest.get_craft_recipe(i)
+        print(recipes.items)
+		if recipes.items then
+			for ii,vv in pairs(recipes.items)do
+				print(tostring(ii .. ' ' ..vv))
+            end
+        end
+    end
+end
 local counter =  {}
 minetest.register_on_joinplayer(function(player)
-	
-	print('ciao')
+    goldstandard.oreValue()
+	goldstandard.toolcapsValue()
+    goldstandard.craftValue()
+	--[[print('ciao')
 	local borsa = {}
 	--print(tostring(minetest.registered_nodes['default:stone']))
 	print(tostring('11111111111111111111111111111111111111111111111111111111111111111'))
@@ -111,28 +135,16 @@ function spairs(t, order)
         i = i + 1
         if keys[i] then
             return keys[i], t[keys[i]]
-        end
-    end
-end
-for k,v in spairs(borsa, function(t,a,b) return t[b] < t[a] end) do
-    print(k,v)
-end
-	print(tostring('444444444444444444444444444444444444444444444444444444444444444444'))
-	print(dump(minetest.registered_ores))
+--        end
+--    end
+--end
+--for k,v in spairs(borsa, function(t,a,b) return t[b] < t[a] end) do
+--    print(k,v)
+--end
+--	print(tostring('444444444444444444444444444444444444444444444444444444444444444444'))
+--	print(dump(minetest.registered_ores))
     
-    for i,v in pairs(minetest.registered_ores) do
-        local value = v.clust_scarcity * v.clust_size * (v.clust_num_ores or 1) * math.abs(v.y_max-v.y_min)
-        print(v.ore .. ' ' .. value)
-        
-    end
-    for i,v in pairs(core.registered_items) do
-        print(i)
-        local itemstack=ItemStack(i)
-        print(itemstack)
-        itemdef=itemstack:get_definition()
-        itemcaps=itemdef.tool_capabilities
-        print(dump(itemcaps))   
-    end
+
 	--print(dump(minetest.registered_craft))
 	
 end)

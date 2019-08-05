@@ -90,6 +90,7 @@ minetest.register_on_joinplayer(function(player)
 		
 		print(tostring(i))
 	end
+    
 	print(dump(borsa))
 function spairs(t, order)
     -- collect the keys
@@ -118,7 +119,21 @@ for k,v in spairs(borsa, function(t,a,b) return t[b] < t[a] end) do
 end
 	print(tostring('444444444444444444444444444444444444444444444444444444444444444444'))
 	print(dump(minetest.registered_ores))
-	print(dump(minetest.registered_craft))
+    
+    for i,v in pairs(minetest.registered_ores) do
+        local value = v.clust_scarcity * v.clust_size * (v.clust_num_ores or 1) * math.abs(v.y_max-v.y_min)
+        print(v.ore .. ' ' .. value)
+        
+    end
+    for i,v in pairs(core.registered_items) do
+        print(i)
+        local itemstack=ItemStack(i)
+        print(itemstack)
+        itemdef=itemstack:get_definition()
+        itemcaps=itemdef.tool_capabilities
+        print(dump(itemcaps))   
+    end
+	--print(dump(minetest.registered_craft))
 	
 end)
 

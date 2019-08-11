@@ -45,52 +45,9 @@ function goldstandard.digTimeValue()
     end
 end
     
--- function goldstandard.DeepPrint (e)
---     -- if e is a table, we should iterate over its elements
---     if type(e) == "table" then
---         for k,v in pairs(e) do -- for every element in the table
---             print(k)
---             goldstandard.DeepPrint(v)       -- recursively repeat the same procedure
---         end
---     else -- if not, we can just print it
---         print(e)
---     end
--- end
-goldstandard.dppath='base '
-goldstandard.dplist={}
-goldstandard.dpindex=0
-goldstandard.dpcurrent=''
 
--- function goldstandard.DeepPrint3 (e,name)
---     -- if e is a table, we should iterate over its elements
---     
---     if type(e) == "table" then
---         
---         table.insert(goldstandard.dplist,goldstandard.dpindex,name)
---         for i,v in pairs(goldstandard.dplist) do
---             goldstandard.dppath = goldstandard.dppath .. v
---         end
---         
---         
---         
---         for k,v in pairs(e) do -- for every element in the table
---             print(k)
---             goldstandard.DeepPrint3(v,k)       -- recursively repeat the same procedure
---         end
---     else -- if not, we can just print it
--- --         print(e)
---     print(goldstandard.dppath .. ' ' ..e)
---     end
--- end
--- 
-
---[[goldstandard.basetool={}
-function goldstandard.toolanalisy(caps)
-    for i,v in pairs(caps.groupcaps) do
-        
-       ]] 
 goldstandard.new_t={}
-function goldstandard.clone (t,target,name) 
+function goldstandard.clone (t,target) 
     if not t then return end-- t is a table
     local i, v = next(t,nil)  -- i is an index of t, v = t[i]
     while i do
@@ -121,75 +78,6 @@ function goldstandard.clone (t,target,name)
 end
 
 
--- goldstandard.aaa={}
--- goldstandard.bbb = ''
--- goldstandard.listlv={}
--- 
--- 
--- function goldstandard.deepPrint2 (e,index)
--- 
---     goldstandard.bbb = index
---     --print('deepPrint2 type '.. ' ' ..type( e))
---     if type(e) == "table" then
---         print(next(e))        
---         for k,v in pairs(e) do -- for every element in the table
---             print('index ' .. k)
---             
---             goldstandard.aaa[index]={}
---             table.insert(goldstandard.listlv,-1,k)
--- 
---                     
---                 
---             goldstandard.deepPrint2(v,k)       -- recursively repeat the same procedure
---         end
---     else 
---         --print(e)
---         --goldstandard.aaa[index] = e
---         --[[table.insert(goldstandard.aaa[-1],-1,e)]] 
---     end
--- end
--- 
--- goldstandard.average={}
--- 
--- 
--- function goldstandard.deepSearch (e)
--- 
---     local average = {}
---     -- if e is a table, we should iterate over its elements
---     if type(e) == "table" then
---         
---         
---         for k,v in pairs(e) do -- for every element in the table
--- 
---             if goldstandard.deepSearchCurrent ~= k then
---                 goldstandard.deepSearchCurrent = k
---                 
---             end
---                 
--- --             print(k)
---             if type(v) == 'table' then
---                 print(k)
---                 if not goldstandard.average[goldstandard.deepSearchCurrent] then
---                     goldstandard.average[goldstandard.deepSearchCurrent]={}
---                 end
---             else
---                 if not goldstandard.average[goldstandard.deepSearchCurrent] then
---                     goldstandard.average[goldstandard.deepSearchCurrent] = v
---                 end
---                 --print(k .. ' ' .. v)
---             end
---             goldstandard.tableDeep = goldstandard.tableDeep +1
---             
---             goldstandard.tablePath[goldstandard.tableDeep] = k
---             
---             goldstandard.deepSearch(self,v)       -- recursively repeat the same procedure
---         end
---     else -- if not, we can just print it
---         print('')
---         goldstandard.average[goldstandard.deepSearchCurrent] = e
---     end
---     print(dump(goldstandard.average)) --SISTEMA GLI INDICI NUMERO
--- end
 
 function goldstandard.toolParse()
     
@@ -198,14 +86,7 @@ function goldstandard.toolParse()
         local itemStack=ItemStack(i)
         local itemDef=itemStack:get_definition()
         local itemCaps=itemDef.tool_capabilities
-        --print(i.. ' ' .. dump(itemCaps))
-        --print(type(dump(itemCaps)))
---         goldstandard.deepSearchCurrent = 'caps'
---         goldstandard.tableDeep = 0
---         goldstandard.tablePath ={}
---         goldstandard.deepPrint2(itemCaps,'itemStack')
-            --print('new_t1' .. ' ' ..dump(goldstandard.new_t))
-            goldstandard.clone(itemCaps,goldstandard.new_t,i)
+        goldstandard.clone(itemCaps,goldstandard.new_t)
          
             
     end
@@ -241,13 +122,8 @@ minetest.register_on_joinplayer(function(player)
 --     goldstandard.digTimeValue()
 goldstandard.toolParse()
 
-    --print(dump(exList))
---     goldstandard.clone(exList,goldstandard.new_t)
 print('new_t2' .. ' ' ..dump(goldstandard.new_t))
-    --     goldstandard.DeepPrint3(exList,'exList')
-    --print(dump(goldstandard.aaa))
 
-	--[[print('ciao')
 	local borsa = {}
 	--print(tostring(minetest.registered_nodes['default:stone']))
 	print(tostring('11111111111111111111111111111111111111111111111111111111111111111'))
